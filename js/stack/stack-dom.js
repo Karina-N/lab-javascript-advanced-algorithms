@@ -10,37 +10,63 @@ const takeStackBtn = document.getElementById('take-stack');
 
 const newStack = new Stack();
 
-const clearStackInput = () => {
-  // ... your code goes here
-};
+const clearStackInput = () => {};
 
 const renderListStack = () => {
-  // ... your code goes here
+  stackList.innerHTML = '';
+  for (let i = 0; i < newStack.MAX_SIZE; i++) {
+    const listElement = document.createElement('li');
+    stackList.appendChild(listElement);
+    listElement.className = 'inactive';
+
+    const latestInput = newStack.stackControl[newStack.stackControl.length - 1];
+    const firstInactiveBox = document.querySelector('li, .inactive');
+
+    if (newStack.stackControl.length != 0) {
+      firstInactiveBox.innerHTML = latestInput;
+      firstInactiveBox.className = 'active';
+    }
+  }
 };
 
 renderListStack();
 
 const generateWarningStack = (type) => {
   if (type === 'underflow') {
-    // ... your code goes here
+    warningBottomStack.setAttribute('style', 'display:block');
+    warningBottomStack.innerHTML = 'underflow';
   } else if (type === 'overflow') {
-    // ... your code goes here
+    warningTopStack.setAttribute('style', 'display:block');
+    warningTopStack.innerHTML = 'overflow';
   }
 };
 
 const addToStack = () => {
   try {
-    // ... your code goes here
+    newStack.push(stackInput.value);
+    renderListStack();
+
+    console.log(newStack.stackControl);
+
+    if ((warningBottomStack.style.display = 'block')) {
+      warningBottomStack.setAttribute('style', 'display:none');
+    }
   } catch (error) {
-    // there was an overflow error, handle it
+    generateWarningStack('overflow');
   }
 };
 
 const removeFromStack = () => {
   try {
-    // ... your code goes here
+    newStack.pop();
+    console.log('click remove');
+    renderListStack();
+
+    if ((warningTopStack.style.display = 'block')) {
+      warningTopStack.setAttribute('style', 'display:none');
+    }
   } catch (error) {
-    // there was an underflow error, handle it
+    generateWarningStack('underflow');
   }
 };
 

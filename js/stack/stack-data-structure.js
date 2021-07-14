@@ -5,7 +5,7 @@ class Stack {
   }
 
   canPush() {
-    if (this.stackControl < this.MAX_SIZE) {
+    if (this.stackControl.length < this.MAX_SIZE) {
       return true;
     } else {
       return false;

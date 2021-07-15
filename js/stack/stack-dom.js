@@ -14,18 +14,19 @@ const clearStackInput = () => {};
 
 const renderListStack = () => {
   stackList.innerHTML = '';
+
   for (let i = 0; i < newStack.MAX_SIZE; i++) {
     const listElement = document.createElement('li');
     stackList.appendChild(listElement);
-    listElement.className = 'inactive';
-
-    const latestInput = newStack.stackControl[newStack.stackControl.length - 1];
-    const firstInactiveBox = document.querySelector('li, .inactive');
-
-    if (newStack.stackControl.length != 0) {
-      firstInactiveBox.innerHTML = latestInput;
-      firstInactiveBox.className = 'active';
+    if (newStack.stackControl[i] !== undefined) {
+      listElement.innerHTML = newStack.stackControl[i];
+      listElement.className = 'active';
+    } else {
+      listElement.className = 'inactive';
     }
+
+    // const latestInput = newStack.stackControl[newStack.stackControl.length - 1];
+    // const firstInactiveBox = document.querySelector('li, .inactive');
   }
 };
 
@@ -56,6 +57,10 @@ const addToStack = () => {
   }
 };
 
+const resetInputField = () => {
+  stackInput.value = '';
+};
+
 const removeFromStack = () => {
   try {
     newStack.pop();
@@ -70,5 +75,8 @@ const removeFromStack = () => {
   }
 };
 
-addStackBtn.addEventListener('click', addToStack);
+addStackBtn.addEventListener('click', () => {
+  addToStack();
+  resetInputField();
+});
 takeStackBtn.addEventListener('click', removeFromStack);
